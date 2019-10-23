@@ -1057,10 +1057,10 @@ body .markdown-body
 .codehilite .gc{color:#999;background-color:#EAF2F5}
 </style><title>README</title></head><body><article class="markdown-body"><h1 id="django-b2c">Django B2C天天生鲜项目<a class="headerlink" href="#django-b2c" title="Permanent link"></a></h1>
 <p>## 模块
- - 用户模块：注册、登录、celery异步发送邮件激活。
- - 商品模块 ：mysql；haystack+whoosh实现对商品的检索；Nginx+fastdfs图片分布式存储。
- - 订单模块：悲观锁及乐观锁处理并发；支付宝接口使用
- - 购物车模块:redis数据库进行存储</p>
+ - 用户模块：注册、登录、激活：celery异步发送邮件、个人中心、地址。
+ - 商品模块：首页、详情页、列表页、搜索：mysql；haystack+whoosh实现对商品的检索；Nginx+fastdfs图片分布式存储。
+ - 订单模块：确认、提交、支付、查询；由悲观锁及乐观锁处理并发；支付宝接口处理支付。
+ - 购物车模块:增删改查；由redis进行存储相关信息。</p>
 <h2 id="_1">项目组成<a class="headerlink" href="#_1" title="Permanent link"></a></h2>
 <ul>
 <li>富文本编辑器用于后台编辑。</li>
