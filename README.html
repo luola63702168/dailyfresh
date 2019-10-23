@@ -1056,17 +1056,23 @@ body .markdown-body
 .codehilite .il{color:#009999}
 .codehilite .gc{color:#999;background-color:#EAF2F5}
 </style><title>README</title></head><body><article class="markdown-body"><h1 id="django-b2c">Django B2C天天生鲜项目<a class="headerlink" href="#django-b2c" title="Permanent link"></a></h1>
-<p>## 模块
- - 用户模块：注册、登录、激活：celery异步发送邮件、个人中心、地址。
- - 商品模块：首页、详情页、列表页、搜索：mysql；haystack+whoosh实现对商品的检索；Nginx+fastdfs图片分布式存储。
- - 订单模块：确认、提交、支付、查询；由悲观锁及乐观锁处理并发；支付宝接口处理支付。
- - 购物车模块:增删改查；由redis进行存储相关信息。</p>
-<h2 id="_1">项目组成<a class="headerlink" href="#_1" title="Permanent link"></a></h2>
+<h2 id="_1">模块<a class="headerlink" href="#_1" title="Permanent link"></a></h2>
 <ul>
+<li>用户模块：注册、登录、激活、个人中心、地址。</li>
+<li>商品模块：首页、详情页、列表页、搜索。</li>
+<li>订单模块：确认、提交、支付、查询。</li>
+<li>购物车模块:增删改查。</li>
+</ul>
+<h2 id="_2">项目组成<a class="headerlink" href="#_2" title="Permanent link"></a></h2>
+<ul>
+<li>mysql。</li>
 <li>富文本编辑器用于后台编辑。</li>
-<li>celery异步发送邮件。</li>
+<li>celery：<ul>
+<li>异步发送邮件激活。</li>
 <li>celery异步生成静态页面。</li>
-<li>分布式存储图片。</li>
+</ul>
+</li>
+<li>Nginx+fastdfs图片分布式存储。</li>
 <li>存储在redis上的数据：<ul>
 <li>9号数据库：用户登录的session；用户浏览记录；购物车记录；主页面的缓存。</li>
 <li>8号数据库：redis作为异步的中间者，形成任务队列，从而发邮件或生成静态页面。</li>
@@ -1077,7 +1083,8 @@ body .markdown-body
 </ul>
 </li>
 <li>支付：<ul>
-<li>支付宝接口接入</li>
+<li>由悲观锁及乐观锁处理并发；</li>
+<li>支付宝接口接入处理支付请求。</li>
 </ul>
 </li>
 <li>项目部署(nginx（调度）-uwsgi+Djano-nginx（fdfs及静态页面）) <ul>
@@ -1085,5 +1092,5 @@ body .markdown-body
 </ul>
 </li>
 </ul>
-<h2 id="_2">补充<a class="headerlink" href="#_2" title="Permanent link"></a></h2>
+<h2 id="_3">补充<a class="headerlink" href="#_3" title="Permanent link"></a></h2>
 <p>虚拟环境中的关键版本(需要呼应)：Django==1.11  django-redis==4.10.0</p></article></body></html>
