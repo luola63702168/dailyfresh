@@ -1065,11 +1065,12 @@ body .markdown-body
 </ul>
 <h2 id="_2">项目组成<a class="headerlink" href="#_2" title="Permanent link"></a></h2>
 <ul>
+<li>django自带认证系统实现用户体系</li>
 <li>mysql。</li>
 <li>富文本编辑器用于后台编辑。</li>
 <li>celery：<ul>
-<li>异步发送邮件激活。</li>
-<li>celery异步生成静态页面。</li>
+<li>异步发送邮件（163邮箱）激活（itdangerous加密身份认证信息）。</li>
+<li>异步生成静态页面。</li>
 </ul>
 </li>
 <li>Nginx+fastdfs图片分布式存储。</li>
