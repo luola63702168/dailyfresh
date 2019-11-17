@@ -24,4 +24,5 @@
 - 项目部署(nginx（调度）-uwsgi+Djano-nginx（fdfs及静态页面）) 
     - 实现静动态请求转发，负载均衡。
 ## 补充
-虚拟环境中的关键版本(需要呼应)：Django==1.11  django-redis==4.10.0
+- 虚拟环境中的关键版本(需要呼应)：Django==1.11  django-redis==4.10.0
+- 如果需要查看项目效果图及runserver，请移步**dailyfresh_runserver_edition**仓库
