@@ -1,5 +1,4 @@
 from django.db import models
-# django自带的一个用户模型类（默认的创建超管的那个类，已经在setting文件中修改了）
 from django.contrib.auth.models import AbstractUser
 from db.base_model import BaseModel
 # Create your models here.
@@ -15,14 +14,10 @@ class User(AbstractUser, BaseModel):
 
 class AddressManager(models.Manager):
     '''地址模型管理类'''
-    # 1，改变原有查询结果的所有集：all()先调用父类的方法，然后再筛选
-    # 2，封装方法：用户操作模型类对应的数据表（增删改查）
     def get_default_address(self,user):
-        # self.model 获取self对象所在的模型类
         try:
             address = self.get(user=user, is_default=True)
         except self.model.DoesNotExist:
-            # 不存在默认收货地址
             address = None
         return address
 
@@ -35,7 +30,6 @@ class Address(BaseModel):
     phone = models.CharField(max_length=11, verbose_name='联系电话')
     is_default = models.BooleanField(default=False, verbose_name='是否默认')
 
-    # 自定义一个模型管理类对象
     objects = AddressManager()
 
     class Meta:
