@@ -1,5 +1,7 @@
 from django.db import models
 from db.base_model import BaseModel
+
+
 # Create your models here.
 
 
@@ -50,17 +52,15 @@ class OrderInfo(BaseModel):
         (4, '待评价'),
         (5, '已完成')
     )
-    # 当自己指定主键之后，自动增长的主键就没有了，插入数据的时候就需要自己指定了
     order_id = models.CharField(max_length=128, primary_key=True, verbose_name='订单id')
-    #  当模型类不在同一个应用里的时候，需要 文件夹.类名建立关系
     user = models.ForeignKey('user.User', verbose_name='用户')
     addr = models.ForeignKey('user.Address', verbose_name='地址')
     pay_method = models.SmallIntegerField(choices=PAY_METHOD_CHOICES, default=3, verbose_name='支付方式')
     total_count = models.IntegerField(default=1, verbose_name='商品数量')
     total_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='商品总价')
-    transit_price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name='订单运费')
+    transit_price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='订单运费')
     order_status = models.SmallIntegerField(choices=ORDER_STATUS_CHOICES, default=1, verbose_name='订单状态')
-    trade_no = models.CharField(max_length=128,default='',verbose_name='支付编号')
+    trade_no = models.CharField(max_length=128, default='', verbose_name='支付编号')
 
     class Meta:
         db_table = 'df_order_info'
@@ -75,7 +75,7 @@ class OrderGoods(BaseModel):
     count = models.IntegerField(default=1, verbose_name='商品数目')
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='商品价格')
     # comment = models.CharField(max_length=256, verbose_name='评论')
-    comment = models.CharField(max_length=256, default='', verbose_name='评论')  # (最好修改成下面这样的)
+    comment = models.CharField(max_length=256, default='', verbose_name='评论')
 
     class Meta:
         db_table = 'df_order_goods'

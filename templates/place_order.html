@@ -9,7 +9,6 @@
 		<dl>
 			<dt>寄送到：</dt>
             {% for addr in addrs %}
-{#                type="radio" name="addr_id" 配合使用，才能只会选中一个#}
 			<dd><input type="radio" name="addr_id" value="{{ addr.id }}" {% if addr.is_default %}checked{% endif %}>{{ addr.addr }} （{{ addr.receiver }} 收） {{ addr.phone }}</dd>
 		    {% endfor %}
         </dl>
@@ -43,7 +42,6 @@
 		</ul>
         {% for sku in skus %}
 		<ul class="goods_list_td clearfix">
-{#        forloop.counter 获取当前循环次数，类似索引并填入数值#}
 			<li class="col01">{{ forloop.counter }}</li>
 			<li class="col02"><img src="{{ sku.image.url }}"></li>
 			<li class="col03">{{ sku.name }}</li>
@@ -67,7 +65,6 @@
 
 	<div class="order_submit clearfix">
         {% csrf_token %}
-{#        sku_ids={{ sku_ids }}  {{ 这里只能是字符串所以就用join()方法了 }}#}
 		<a href="javascript:;" sku_ids={{ sku_ids }} id="order_btn">提交订单</a>
 	</div>
 {% endblock body %}
@@ -84,19 +81,14 @@
 	<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
 	<script type="text/javascript">
 		$('#order_btn').click(function() {
-            // 获取用户选择的地址id, 支付方式, 要购买的商品id字符串
             addr_id = $('input[name="addr_id"]:checked').val()
             pay_method = $('input[name="pay_style"]:checked').val()
             sku_ids = $(this).attr('sku_ids')
             csrf = $('input[name="csrfmiddlewaretoken"]').val()
-            // alert(addr_id+":"+pay_method+':'+sku_ids)
-            // 组织参数
             params = {'addr_id':addr_id, 'pay_method':pay_method, 'sku_ids':sku_ids,
                         'csrfmiddlewaretoken':csrf}
-            // 发起ajax post请求，访问/order/commit, 传递的参数: addr_id pay_method, sku_ids
             $.post('/order/commit', params, function (data) {
                 if (data.res == 5){
-                    // 创建成功
                     localStorage.setItem('order_finish',2);
                     $('.popup_con').fadeIn('fast', function() {
 

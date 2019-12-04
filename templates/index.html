@@ -23,7 +23,6 @@
 	<div class="center_con clearfix">
 		<ul class="subnav fl">
             {% for type in types %}
-            {#{{ forloop.counter }} 从1往后数的模板变量 class=fruit#}
 			<li><a href="#model0{{ forloop.counter }}" class="{{ type.logo }}">{{ type.name }}</a></li>
             {% endfor %}
 		</ul>

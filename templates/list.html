@@ -31,7 +31,6 @@
 			</div>
 
 			<ul class="goods_type_list clearfix">
-{#                {% for sku in skus_page.object_list %}#}
                 {% for sku in skus_page %}
 				<li>
 					<a href="{% url 'goods:detail' sku.id %}"><img src="{{ sku.image.url }}"></a>

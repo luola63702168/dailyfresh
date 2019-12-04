@@ -12,9 +12,7 @@
 				</ul>
             <form method="post">
                 {% csrf_token %}
-                {# 订单id #}
                 <input type="hidden" name="order_id" value="{{order.order_id}}">
-                {# 订单中有几个商品 #}
                 <input type="hidden" name="total_count" value="{{order.order_skus|length}}">
                 {% for order_sku in order.order_skus %}
                 <table class="order_list_table w980">
