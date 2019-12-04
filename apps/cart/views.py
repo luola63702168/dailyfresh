@@ -10,7 +10,7 @@ from goods.models import GoodsSKU
 # Create your views here.
 
 
-# 1）请求方式，采用ajax post
+# 1）ajax post
 # 2) 传递参数: 商品id(sku_id) 商品数量(count)
 # /cart/add
 class CartAddView(View):
@@ -58,11 +58,9 @@ class CartInfoView(LoginRequiredMixin, View):
 
     def get(self, request):
         '''显示'''
-        # 获取登录的用户
         user = request.user
         conn = get_redis_connection('default')
         cart_key = 'cart_%d' % user.id
-        # {'商品id':商品数量, ...}
         cart_dict = conn.hgetall(cart_key)
         skus = []
         total_count = 0
@@ -82,7 +80,7 @@ class CartInfoView(LoginRequiredMixin, View):
         return render(request, 'cart.html', context)
 
 
-# 采用ajax post请求
+# ajax post
 # 前端需要传递的参数:商品id(sku_id) 更新的商品数量(count)
 # /cart/update
 class CartUpdateView(View):
@@ -116,7 +114,6 @@ class CartUpdateView(View):
             return JsonResponse({'res': 4, 'errmsg': '商品库存不足'})
         conn.hset(cart_key, sku_id, count)
 
-        # 计算用户购物车中商品的总件数 {'1':5, '2':3}
         total_count = 0
         vals = conn.hvals(cart_key)
         for val in vals:
@@ -125,8 +122,7 @@ class CartUpdateView(View):
         return JsonResponse({'res': 3, 'total_count': total_count, 'message': '删除成功'})
 
 
-# 删除购物车记录
-# 采用ajax post请求
+# ajax post
 # 前端需要传递的参数:商品的id(sku_id)
 # /cart/delete
 class CartDeleteView(View):
@@ -153,7 +149,6 @@ class CartDeleteView(View):
         conn = get_redis_connection('default')
         cart_key = 'cart_%d' % user.id
         conn.hdel(cart_key, sku_id)
-        # 计算用户购物车中商品的总件数 {'1':5, '2':3}
         total_count = 0
         vals = conn.hvals(cart_key)
         for val in vals:
