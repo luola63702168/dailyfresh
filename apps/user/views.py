@@ -136,7 +136,7 @@ class UserInfoView(LoginRequiredMixin, View):
         '''显示页面'''
         user = request.user
         address = Address.objects.get_default_address(user)
-        con = get_redis_connection('default')  #
+        con = get_redis_connection('default')
         history_key = 'history_%d' % user.id
         sku_ids = con.lrange(history_key, 0, 4)
         goods_li = []

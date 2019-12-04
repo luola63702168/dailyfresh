@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.http import JsonResponse
 from django.conf import settings
-from django.db import transaction  # 开启事务
+from django.db import transaction
 from django.core.urlresolvers import reverse
 from django.views.generic import View
 from django_redis import get_redis_connection
@@ -32,7 +32,6 @@ class OrderPlaceView(LoginRequiredMixin, View):
         # 校验参数
         if not sku_ids:
             return redirect(reverse('cart:show'))
-        # redis
         coon = get_redis_connection('default')
         cart_key = "cart_%d" % user.id
         skus = []
@@ -253,8 +252,8 @@ class OrderPayView(View):
         )
         total_pay = order.total_price + order.transit_price  # Decimal
         order_string = alipay.api_alipay_trade_page_pay(
-            out_trade_no=order_id,  # 订单id
-            total_amount=str(total_pay),  # 支付总金额
+            out_trade_no=order_id,
+            total_amount=str(total_pay),
             subject='天天生鲜%s' % order_id,
             return_url=None,
             notify_url=None
