@@ -1,4 +1,3 @@
-# 使用celery
 from celery import Celery
 from django.conf import settings
 from django.core.mail import send_mail
@@ -8,7 +7,7 @@ import time
 import os
 import django
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dailyfresh.settings")  # wsgi.py
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "dailyfresh.settings")
 django.setup()
 
 from goods.models import GoodsType, IndexGoodsBanner, IndexPromotionBanner, IndexTypeGoodsBanner
@@ -33,7 +32,7 @@ def send_register_active_email(to_email, username, token):
 def generate_static_index_html():
     '''产生静态页面'''
     types = GoodsType.objects.all()
-    goods_banners = IndexGoodsBanner.objects.all().order_by('index')  # 升序（-index降序）
+    goods_banners = IndexGoodsBanner.objects.all().order_by('index')
     promotion_banners = IndexPromotionBanner.objects.all().order_by('index')
     for type in types:
         image_banners = IndexTypeGoodsBanner.objects.filter(type=type, display_type=1).order_by(
